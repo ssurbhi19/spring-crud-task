@@ -7,7 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-@PropertySource("app.properties")
+@PropertySource("classpath:app.properties")
 public class AppConfig
 {
     @Autowired
@@ -17,10 +17,10 @@ public class AppConfig
     public DriverManagerDataSource dataSource()
     {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/hb_student_tracker?useSSL=false");
+        dataSource.setDriverClassName(environment.getProperty("driver"));
+        dataSource.setUrl(environment.getProperty("url"));
         dataSource.setUsername("hbstudent");
-        dataSource.setPassword("hbstudent");
+        dataSource.setPassword(environment.getProperty("password"));
         return dataSource;
     }
 
